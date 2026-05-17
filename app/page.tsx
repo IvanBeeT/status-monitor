@@ -1,6 +1,8 @@
 import { prisma } from "@/lib/prisma"
 import UptimeBars from "./components/UptimeBars"
 
+export const dynamic = "force-dynamic"
+
 async function getServices() {
   const services = await prisma.service.findMany({
     include: {
