@@ -20,25 +20,12 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    ports:
+      - "3001:3000"
     environment:
       DATABASE_URL: postgresql://${DB_USER}:${DB_PASSWORD}@db:5432/${DB_NAME}
       AUTH_SECRET: ${AUTH_SECRET}
       ADMIN_PASSWORD_HASH: ${ADMIN_PASSWORD_HASH}
 
-  caddy:
-    image: caddy:2-alpine
-    restart: unless-stopped
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
-      - caddy_data:/data
-      - caddy_config:/config
-    depends_on:
-      - app
-
 volumes:
   db_data:
-  caddy_data:
-  caddy_config:
